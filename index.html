@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Our Evening</title>
+
+  <!-- Elegant serif font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --wine: #651d2d;
+      --wine-light: #8d3045;
+      --wine-dark: #260b13;
+      --black: #080708;
+      --cream: #eee7df;
+      --muted: #9d9194;
+      --line: rgba(238,231,223,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(101, 29, 45, 0.24),
+          transparent 38%
+        ),
+        linear-gradient(
+          145deg,
+          #080708 0%,
+          #10090c 50%,
+          #1b090f 100%
+        );
+
+      color: var(--cream);
+      font-family: "Inter", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* subtle background texture */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          #fff 3px
+        );
+    }
+
+    .page {
+      width: min(900px, 92%);
+      padding: 70px 0;
+      position: relative;
+    }
+
+    /* ---------- HERO ---------- */
+
+    .hero {
+      text-align: center;
+      margin-bottom: 65px;
+    }
+
+    .small-title {
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #a9979b;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(64px, 10vw, 105px);
+      line-height: 0.8;
+      font-weight: 400;
+      letter-spacing: -3px;
+    }
+
+    .hero-line {
+      width: 55px;
+      height: 1px;
+      background: var(--wine-light);
+      margin: 35px auto 25px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 1.5px;
+    }
+
+    /* ---------- CARD ---------- */
+
+    .card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.035),
+          rgba(255,255,255,0.012)
+        );
+
+      backdrop-filter: blur(15px);
+      padding: 50px;
+      position: relative;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 40px;
+      width: 90px;
+      height: 1px;
+      background: var(--wine-light);
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #8f7f83;
+      margin-bottom: 17px;
+    }
+
+    /* ---------- DATE ---------- */
+
+    .date-wrapper {
+      position: relative;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,0.25);
+      color: var(--cream);
+      font-family: "Inter", sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s;
+      color-scheme: dark;
+    }
+
+    input[type="date"]:hover,
+    input[type="date"]:focus {
+      border-color: var(--wine-light);
+      box-shadow: 0 0 0 1px rgba(141,48,69,0.15);
+    }
+
+    /* ---------- TIME ---------- */
+
+    .times {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .time-option {
+      position: relative;
+    }
+
+    .time-option input {
+      display: none;
+    }
+
+    .time-option label {
+      display: block;
+      padding: 24px 10px;
+      text-align: center;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition:
+        background 0.3s,
+        border 0.3s,
+        transform 0.3s;
+      background: rgba(0,0,0,0.18);
+    }
+
+    .time {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+    }
+
+    .time-sub {
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: #827579;
+      margin-top: 5px;
+    }
+
+    .time-option label:hover {
+      border-color: var(--wine-light);
+      transform: translateY(-2px);
+    }
+
+    .time-option input:checked + label {
+      background: linear-gradient(
+        145deg,
+        rgba(101,29,45,0.8),
+        rgba(72,17,30,0.8)
+      );
+
+      border-color: var(--wine-light);
+
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.25),
+        inset 0 0 25px rgba(255,255,255,0.02);
+    }
+
+    /* ---------- LOCATION ---------- */
+
+    .location {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+
+      border: 1px solid var(--line);
+      padding: 25px;
+      background: rgba(0,0,0,0.15);
+    }
+
+    .location-name {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+    }
+
+    .location-info {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+      letter-spacing: 0.5px;
+    }
+
+    .map-button {
+      text-decoration: none;
+      color: var(--cream);
+      border: 1px solid rgba(238,231,223,0.2);
+      padding: 12px 18px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+
+    .map-button:hover {
+      background: var(--wine);
+      border-color: var(--wine-light);
+    }
+
+    /* ---------- SUMMARY ---------- */
+
+    .summary {
+      border-top: 1px solid var(--line);
+      padding-top: 35px;
+      margin-top: 15px;
+    }
+
+    .summary-title {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #8f7f83;
+      margin-bottom: 20px;
+    }
+
+    .summary-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .summary-item {
+      padding: 20px;
+      background: rgba(0,0,0,0.15);
+      border-left: 1px solid var(--wine-light);
+    }
+
+    .summary-item span {
+      display: block;
+      font-size: 9px;
+      color: #817377;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .summary-item strong {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #62585b;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 17px;
+      font-style: italic;
+    }
+
+    /* ---------- MOBILE ---------- */
+
+    @media (max-width: 600px) {
+
+      .page {
+        padding: 45px 0;
+      }
+
+      .card {
+        padding: 28px;
+      }
+
+      .times {
+        grid-template-columns: 1fr;
+      }
+
+      .location {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .map-button {
+        width: 100%;
+        text-align: center;
+      }
+
+      .summary-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <section class="hero">
+
+      <div class="small-title">
+        An evening for two
+      </div>
+
+      <h1>
+        Our<br>
+        Evening
+      </h1>
+
+      <div class="hero-line"></div>
+
+      <p class="subtitle">
+        Choose the moment.
+      </p>
+
+    </section>
+
+
+    <section class="card">
+
+      <!-- DATE -->
+
+      <div class="section">
+
+        <div class="label">
+          When
+        </div>
+
+        <div class="date-wrapper">
+
+          <input
+            type="date"
+            id="datePicker"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- TIME -->
+
+      <div class="section">
+
+        <div class="label">
+          Time
+        </div>
+
+        <div class="times">
+
+          <div class="time-option">
+            <input
+              type="radio"
+              name="time"
+              id="time18"
+              value="18:00"
+            >
+
+            <label for="time18">
+
+              <div class="time">
+                18:00
+              </div>
+
+              <div class="time-sub">
+                Evening
+              </div>
+
+            </label>
+          </div>
+
+
+          <div class="time-option">
+            <input
+              type="radio"
+              name="time"
+              id="time19"
+              value="19:00"
+            >
+
+            <label for="time19">
+
+              <div class="time">
+                19:00
+              </div>
+
+              <div class="time-sub">
+                Evening
+              </div>
+
+            </label>
+          </div>
+
+
+          <div class="time-option">
+            <input
+              type="radio"
+              name="time"
+              id="time20"
+              value="20:00"
+            >
+
+            <label for="time20">
+
+              <div class="time">
+                20:00
+              </div>
+
+              <div class="time-sub">
+                Evening
+              </div>
+
+            </label>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- LOCATION -->
+
+      <div class="section">
+
+        <div class="label">
+          Where
+        </div>
+
+        <div class="location">
+
+          <div>
+
+            <div class="location-name">
+              Tuul Restaurant
+            </div>
+
+            <div class="location-info">
+              Ulaanbaatar · Mongolia
+            </div>
+
+          </div>
+
+
+          <a
+            class="map-button"
+            href="https://maps.app.goo.gl/LSbja9wYXhef4EEU7"
+            target="_blank"
+          >
+            View on map
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- SUMMARY -->
+
+      <div class="summary">
+
+        <div class="summary-title">
+          Your evening
+        </div>
+
+        <div class="summary-content">
+
+          <div class="summary-item">
+
+            <span>
+              Date
+            </span>
+
+            <strong id="selectedDate">
+              Select a date
+            </strong>
+
+          </div>
+
+
+          <div class="summary-item">
+
+            <span>
+              Time
+            </span>
+
+            <strong id="selectedTime">
+              Select a time
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <footer>
+      “Some evenings are meant to be remembered.”
+    </footer>
+
+  </main>
+
+
+  <script>
+
+    const datePicker =
+      document.getElementById("datePicker");
+
+    const selectedDate =
+      document.getElementById("selectedDate");
+
+    const selectedTime =
+      document.getElementById("selectedTime");
+
+
+    // Date selection
+
+    datePicker.addEventListener("change", function () {
+
+      if (!this.value) {
+        selectedDate.textContent =
+          "Select a date";
+        return;
+      }
+
+      const date =
+        new Date(this.value + "T00:00:00");
+
+      const formatted =
+        date.toLocaleDateString(
+          "en-US",
+          {
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+          }
+        );
+
+      selectedDate.textContent =
+        formatted;
+
+    });
+
+
+    // Time selection
+
+    document
+      .querySelectorAll('input[name="time"]')
+      .forEach(function (radio) {
+
+        radio.addEventListener(
+          "change",
+          function () {
+
+            selectedTime.textContent =
+              this.value;
+
+          }
+        );
+
+      });
+
+
+    // Prevent selecting dates in the past
+
+    const today =
+      new Date().toISOString().split("T")[0];
+
+    datePicker.min = today;
+
+  </script>
+
+</body>
+</html>
